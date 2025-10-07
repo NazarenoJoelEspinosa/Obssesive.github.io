@@ -88,18 +88,17 @@ document.addEventListener("keydown", function(e) {
 document.getElementById("galleryModal").addEventListener("click", function(e) {
   if (e.target === this) closeModal();
 });
+
+
 /* ===== Reserva: comportamiento y validación ===== */
 (function() {
-  const openBtn = document.getElementById('openReserveBtn');
+  // openBtn ya no se usa, pero lo dejamos por consistencia con el HTML si existiera.
+  // const openBtn = document.getElementById('openReserveBtn'); 
   const modal = document.getElementById('reserveModal');
   const closeBtn = document.getElementById('closeReserveBtn');
   const cancelBtn = document.getElementById('reserveCancel');
   const form = document.getElementById('reserveForm');
   const msg = document.getElementById('reserveMessage');
-
-  // Config: endpoint a donde enviar reservas
-  const RESERVE_ENDPOINT = '/api/reservas'; // reemplazá si tenés otra URL
-  const USE_BACKEND = false; // poné true cuando tengas API disponible
 
   // Helpers
   function showModal() {
@@ -108,7 +107,7 @@ document.getElementById("galleryModal").addEventListener("click", function(e) {
     document.body.style.overflow = 'hidden'; // Evita scroll en fondo
     // foco en primer campo
     setTimeout(() => document.getElementById('reserveName').focus(), 120);
-    // Ya no se necesita setear min date ni valor por defecto.
+    // Lógica de fecha y hora eliminada.
     form.reset(); // Limpiar formulario al abrir
     msg.textContent = ''; // Limpiar mensaje de estado
   }
@@ -120,8 +119,14 @@ document.getElementById("galleryModal").addEventListener("click", function(e) {
     form.reset();
   }
 
-  // Open / close: SOLO ABRIR AL CLICK
-  openBtn.addEventListener('click', showModal);
+  // NUEVO: Selecciona todos los botones de reserva, excluyendo los del formulario (para evitar bugs)
+  const allReserveBtns = document.querySelectorAll('.styled-reserve-btn:not(.form-actions .styled-reserve-btn)');
+
+  // Open / close: Añade listener a todos los botones que abren el modal
+  allReserveBtns.forEach(btn => {
+    btn.addEventListener('click', showModal);
+  });
+
   closeBtn.addEventListener('click', closeModalReserve);
   cancelBtn.addEventListener('click', closeModalReserve);
 
@@ -145,66 +150,35 @@ document.getElementById("galleryModal").addEventListener("click", function(e) {
     const phone = formData.get('phone') || '';
     if (!/[\d]{6,}/.test(phone.replace(/\D/g,''))) errors.push('Teléfono inválido');
     if (!formData.get('service')) errors.push('Seleccioná un servicio');
-    // REMOVIDA VALIDACIÓN DE FECHA Y HORA
+    // Validaciones de fecha y horario eliminadas.
     return errors;
   }
 
-  // send: si USE_BACKEND true hace fetch POST; si no, guarda en localStorage
-  async function submitReservation(dataObj) {
-    if (USE_BACKEND) {
-      const res = await fetch(RESERVE_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dataObj)
-      });
-      if (!res.ok) throw new Error('Error al enviar la reserva');
-      return res.json();
-    } else {
-      // fallback: guardar en localStorage en array "obs_reservas"
-      const key = 'obs_reservas';
-      const existing = JSON.parse(localStorage.getItem(key) || '[]');
-      existing.push(Object.assign({ id: Date.now(), savedAt: new Date().toISOString() }, dataObj));
-      localStorage.setItem(key, JSON.stringify(existing));
-      return { saved: true, id: dataObj.id || Date.now() };
-    }
-  }
+  form.addEventListener('submit', function(e) {
+    e.preventDefault(); // Detenemos el envío inicial para validar
 
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
     msg.style.color = '#cfeadf';
     msg.textContent = 'Validando...';
 
     const formData = new FormData(form);
-    const errors = validateForm(formData);
+    const errors = validateForm(formData); // Usamos la validación simplificada
+
     if (errors.length) {
+      // Si hay errores, los mostramos y no enviamos
       msg.style.color = '#f6b1b1';
       msg.textContent = errors.join(' · ');
       return;
     }
+    
+    // Si la validación es exitosa:
+    msg.style.color = '#cfeadf';
+    msg.textContent = 'Enviando reserva...';
+    
+    // Permitimos el envío nativo de Formspree (o el servicio que uses en el 'action')
+    // El 'submit()' disparará el envío real del formulario.
+    form.submit();
 
-    // construir objeto
-    const payload = {
-      name: formData.get('name').trim(),
-      email: formData.get('email').trim(),
-      phone: formData.get('phone').trim(),
-      service: formData.get('service'),
-      // FECHA Y HORA YA NO ESTÁN EN EL FORMULARIO
-      notes: formData.get('notes') ? formData.get('notes').trim() : ''
-    };
-
-    try {
-      msg.style.color = '#cfeadf';
-      msg.textContent = 'Enviando reserva...';
-      const result = await submitReservation(payload);
-      // track event (analytics placeholder)
-      try { if (window.gtag) window.gtag('event','reservation_submitted',{method: USE_BACKEND ? 'api' : 'local'}); } catch(e){}
-      msg.style.color = '#b8f0c6';
-      msg.textContent = 'Reserva registrada. Pronto nos contactamos para coordinar.';
-      setTimeout(closeModalReserve, 1600);
-    } catch (err) {
-      console.error(err);
-      msg.style.color = '#f6b1b1';
-      msg.textContent = 'Ocurrió un error al enviar, intentá de nuevo más tarde.';
-    }
+    // NOTA: Con el envío nativo, el usuario abandonará la página y verá la página de "Thank You" de Formspree. 
+    // Los siguientes mensajes de éxito son opcionales y solo se verán brevemente.
   });
 })();
