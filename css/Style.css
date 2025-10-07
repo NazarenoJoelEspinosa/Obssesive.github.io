@@ -27,6 +27,32 @@ header {
 }
 
 /* ====== Hero ====== */
+/* Botón reservar turno mejorado */
+.styled-reserve-btn {
+  background: linear-gradient(90deg, #A3471B 0%, #d97c3a 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 16px 32px;
+  box-shadow: 0 4px 18px rgba(163,71,27,0.18);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.styled-reserve-btn:hover {
+  background: linear-gradient(90deg, #d97c3a 0%, #A3471B 100%);
+  transform: scale(1.04);
+  box-shadow: 0 8px 32px rgba(163,71,27,0.22);
+}
+.reserve-icon {
+  font-size: 1.3em;
+  margin-right: 2px;
+}
+
 .hero {
   background: linear-gradient(rgba(26,26,26,0.7), rgba(26,26,26,0.7)),
               url('/img/detail-hero.jpg') center/cover no-repeat;
@@ -208,49 +234,60 @@ footer {
   .prev, .next { font-size: 28px; padding: 8px; }
 }
 /* Reserva modal: pequeño panel centrado */
-.reserve-panel {
-  background: #0f0f0f; /* panel oscuro */
+ .reserve-panel {
+  background: linear-gradient(120deg, #1A1A1A 0%, #2c1a13 100%);
   color: #eaeaea;
-  padding: 22px;
-  border-radius: 10px;
-  max-width: 560px;
+  padding: 32px 28px;
+  border-radius: 18px;
+  max-width: 480px;
   width: 100%;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  box-shadow: 0 10px 40px rgba(163,71,27,0.18);
+  border: 2px solid #A3471B;
+  position: relative;
+  margin: 0 auto;
 }
 
 .reserve-panel h2 {
-  margin-bottom: 12px;
+  margin-bottom: 18px;
   color: #A3471B;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  text-align: center;
 }
 
 /* Form elements */
 .reserve-panel label {
   display: block;
-  margin-top: 10px;
-  font-size: 0.9rem;
+  margin-top: 12px;
+  font-size: 1rem;
   color: #dcdcdc;
+  font-weight: 500;
 }
 .reserve-panel input,
-.reserve-panel select,
-.reserve-panel textarea {
-  width: 100%;
-  padding: 10px 12px;
-  margin-top: 6px;
-  border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.02);
-  color: #fff;
-  font-size: 0.95rem;
+  .reserve-panel select,
+  .reserve-panel textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin-top: 7px;
+    border-radius: 8px;
+    border: 1.5px solid #A3471B;
+    background: rgba(255,255,255,0.04);
+    color: #fff;
+    font-size: 1rem;
+    transition: border 0.18s;
+    box-shadow: 0 2px 8px rgba(163,71,27,0.08);
+  }
 }
 .reserve-panel input:focus,
-.reserve-panel select:focus,
-.reserve-panel textarea:focus {
-  outline: 2px solid rgba(163,71,27,0.25);
-  border-color: #A3471B;
+  .reserve-panel select:focus,
+  .reserve-panel textarea:focus {
+    outline: 2px solid #A3471B;
+    border-color: #d97c3a;
+  }
 }
 
 /* Form actions */
+/* Form actions mejorados */
 .form-actions {
   display: flex;
   gap: 10px;
@@ -258,24 +295,42 @@ footer {
   align-items: center;
 }
 .form-actions .btn {
-  padding: 10px 14px;
+  padding: 10px 18px;
   border-radius: 8px;
+  background: linear-gradient(90deg, #A3471B 0%, #d97c3a 100%);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(163,71,27,0.10);
+  transition: background 0.2s, transform 0.2s;
+}
+.form-actions .btn:hover {
+  background: linear-gradient(90deg, #d97c3a 0%, #A3471B 100%);
+  transform: scale(1.03);
 }
 #reserveCancel {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.08);
-  color: #eaeaea;
+  border: 1px solid #A3471B;
+  color: #A3471B;
+  box-shadow: none;
+}
+#reserveCancel:hover {
+  background: #A3471B;
+  color: #fff;
 }
 
 /* Message */
 .reserve-message {
-  margin-top: 12px;
-  font-size: 0.95rem;
-  min-height: 20px;
+  margin-top: 16px;
+  font-size: 1.05rem;
+  min-height: 22px;
   color: #cfeadf;
+  text-align: center;
+  font-weight: 500;
 }
 
 /* Responsive */
 @media (max-width:640px) {
-  .reserve-panel { padding: 16px; }
+  .reserve-panel { padding: 16px 8px; border-radius: 12px; }
+  .styled-reserve-btn { font-size: 1rem; padding: 12px 18px; }
 }

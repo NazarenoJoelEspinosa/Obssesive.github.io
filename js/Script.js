@@ -105,6 +105,7 @@ document.getElementById("galleryModal").addEventListener("click", function(e) {
   function showModal() {
     modal.style.display = 'flex';
     modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden'; // Evita scroll en fondo
     // foco en primer campo
     setTimeout(() => document.getElementById('reserveName').focus(), 120);
     // set min date hoy
@@ -126,6 +127,7 @@ document.getElementById("galleryModal").addEventListener("click", function(e) {
   function closeModalReserve() {
     modal.style.display = 'none';
     modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
     msg.textContent = '';
     form.reset();
   }
