@@ -7,8 +7,8 @@
 }
 
 body {
-  background-color: #E0E0E0;
-  color: #1A1A1A;
+  background-color: #121212;
+  color: #E0E0E0; 
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1426,4 +1426,41 @@ footer {
 @media (max-width:640px) {
   .reserve-panel { padding: 16px 8px; border-radius: 12px; }
   .styled-reserve-btn { font-size: 1rem; padding: 12px 18px; }
+}
+/* ====== Redes Sociales ====== */
+.social-media {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #1A1A1A; /* Fondo un poco diferente al body */
+    border-top: 3px solid #A3471B;
+}
+
+.social-media h2 {
+    color: #A3471B; 
+    font-size: 2rem; 
+    margin-bottom: 10px;
+}
+
+.social-media p {
+    color: #B0B0B0;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.social-links a {
+    color: #A3471B; /* Color de marca para los iconos */
+    font-size: 2.5rem;
+    transition: color 0.2s, transform 0.2s;
+    display: flex; /* Asegura que la transformación funcione bien */
+}
+
+.social-links a:hover {
+    color: #d97c3a; /* Un color un poco más brillante al pasar el mouse */
+    transform: scale(1.15); /* Que crezcan un poco al interactuar */
 }
