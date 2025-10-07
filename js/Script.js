@@ -108,21 +108,9 @@ document.getElementById("galleryModal").addEventListener("click", function(e) {
     document.body.style.overflow = 'hidden'; // Evita scroll en fondo
     // foco en primer campo
     setTimeout(() => document.getElementById('reserveName').focus(), 120);
-    // set min date hoy
-    const dateInput = document.getElementById('reserveDate');
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const dd = String(today.getDate()).padStart(2, '0');
-    dateInput.min = `${yyyy}-${mm}-${dd}`;
-    // si no existe valor, poner siguiente día hábil simple (hoy +1)
-    if (!dateInput.value) {
-      const next = new Date(today);
-      next.setDate(next.getDate() + 1);
-      const ndd = String(next.getDate()).padStart(2, '0');
-      const nmm = String(next.getMonth() + 1).padStart(2, '0');
-      dateInput.value = `${next.getFullYear()}-${nmm}-${ndd}`;
-    }
+    // Ya no se necesita setear min date ni valor por defecto.
+    form.reset(); // Limpiar formulario al abrir
+    msg.textContent = ''; // Limpiar mensaje de estado
   }
   function closeModalReserve() {
     modal.style.display = 'none';
@@ -132,7 +120,7 @@ document.getElementById("galleryModal").addEventListener("click", function(e) {
     form.reset();
   }
 
-  // Open / close
+  // Open / close: SOLO ABRIR AL CLICK
   openBtn.addEventListener('click', showModal);
   closeBtn.addEventListener('click', closeModalReserve);
   cancelBtn.addEventListener('click', closeModalReserve);
@@ -157,8 +145,7 @@ document.getElementById("galleryModal").addEventListener("click", function(e) {
     const phone = formData.get('phone') || '';
     if (!/[\d]{6,}/.test(phone.replace(/\D/g,''))) errors.push('Teléfono inválido');
     if (!formData.get('service')) errors.push('Seleccioná un servicio');
-    if (!formData.get('date')) errors.push('Seleccioná una fecha');
-    if (!formData.get('time')) errors.push('Seleccioná un horario');
+    // REMOVIDA VALIDACIÓN DE FECHA Y HORA
     return errors;
   }
 
@@ -201,8 +188,7 @@ document.getElementById("galleryModal").addEventListener("click", function(e) {
       email: formData.get('email').trim(),
       phone: formData.get('phone').trim(),
       service: formData.get('service'),
-      date: formData.get('date'),
-      time: formData.get('time'),
+      // FECHA Y HORA YA NO ESTÁN EN EL FORMULARIO
       notes: formData.get('notes') ? formData.get('notes').trim() : ''
     };
 
@@ -213,7 +199,7 @@ document.getElementById("galleryModal").addEventListener("click", function(e) {
       // track event (analytics placeholder)
       try { if (window.gtag) window.gtag('event','reservation_submitted',{method: USE_BACKEND ? 'api' : 'local'}); } catch(e){}
       msg.style.color = '#b8f0c6';
-      msg.textContent = 'Reserva registrada. Pronto nos contactamos para confirmar.';
+      msg.textContent = 'Reserva registrada. Pronto nos contactamos para coordinar.';
       setTimeout(closeModalReserve, 1600);
     } catch (err) {
       console.error(err);
