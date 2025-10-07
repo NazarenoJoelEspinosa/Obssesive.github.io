@@ -74,37 +74,54 @@
                 vehículo. Nuestro enfoque está en la perfección de cada detalle.</p>
         </section>
 
-        <section class="services">
-            <h2>Nuestros Servicios</h2>
-            <div class="cards">
-                <div class="card">
-                    <h3>Paint Protection Film (PPF)</h3>
-                    <ul>
-                        <li>Proteccion contra rayones y saltos de pintura</li>
-                        <li>Repelencia al agua y polvillo</li>
-                        <li>Auto curable</li>
-                        <li>Protección contra rayos UV (Anti amarilleo)</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3>Tratamiento cerámico</h3>
-                    <p>Recubrimiento cerámico de alta resistencia para mayor durabilidad.</p>
-                </div>
-                <div class="card">
-                    <h3>Sacabollos</h3>
-                    <p>Reparamos golpes y abolladuras sin dañar la pintura original del vehículo.</p>
-                </div>
-                <div class="card">
-                    <h3>Polarizados y láminas de seguridad</h3>
-                    <p>Instalación profesional que mejora la estética, protege del sol y aumenta la seguridad.</p>
-                </div>
-                <div class="card">
-                    <h3>Limpieza de interiores</h3>
-                    <p>Detalle profundo en tapizados, plásticos y cuero.</p>
-                </div>
-            </div>
-        </section>
+       <section class="services">
+    <h2>Nuestros Servicios</h2>
+    <p class="section-description">Protección y estética de alta gama para tu vehículo. Trabajamos con marcas líderes para garantizar un acabado impecable.</p>
 
+    <div class="service-grid">
+        
+        <div class="service-card">
+            <i class="fa-solid fa-shield-halved service-icon"></i>
+            <h3>PPF (Film de Protección)</h3>
+            <ul>
+                <li>Máxima protección contra rayones, piedras y químicos.</li>
+                <li>Lámina autocurable con 10 años de garantía.</li>
+                <li>Mantiene el valor de reventa.</li>
+            </ul>
+            <button class="btn-card styled-reserve-btn" id="openReserveBtn_ppf" aria-haspopup="dialog" aria-controls="reserveModal">Pedir Presupuesto</button>
+        </div>
+
+        <div class="service-card">
+            <i class="fa-solid fa-spray-can service-icon"></i>
+            <h3>Tratamiento Cerámico</h3>
+            <ul>
+                <li>Brillo profundo y duradero (hasta 5 años).</li>
+                <li>Efecto hidrofóbico: Repele el agua y facilita la limpieza.</li>
+                <li>Protección superior contra rayos UV y contaminantes.</li>
+            </ul>
+            <button class="btn-card styled-reserve-btn" id="openReserveBtn_ceramic" aria-haspopup="dialog" aria-controls="reserveModal">Reservar Turno</button>
+        </div>
+
+        <div class="service-card">
+            <i class="fa-solid fa-car-side service-icon"></i>
+            <h3>Desabollado sin Pintar</h3>
+            <ul>
+                <li>Reparación invisible de pequeños golpes y granizo.</li>
+                <li>Mantiene la pintura y el acabado de fábrica (PDR).</li>
+                <li>Rápida ejecución y mejor precio.</li>
+            </ul>
+            <button class="btn-card styled-reserve-btn" id="openReserveBtn_pdr" aria-haspopup="dialog" aria-controls="reserveModal">Consultar Servicio</button>
+        </div>
+        
+    </div>
+    
+    <div class="final-cta">
+        <p>¿No estás seguro de qué servicio elegir? Te asesoramos sin cargo.</p>
+        <button class="btn styled-reserve-btn" id="openReserveBtn_final" aria-haspopup="dialog" aria-controls="reserveModal">
+            Asesoramiento y Reserva
+        </button>
+    </div>
+</section>
         <section class="gallery">
             <h2>Autos que realizamos</h2>
             <!-- Modal -->
