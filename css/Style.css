@@ -994,3 +994,26 @@ dialog h2 {
 }
 
 }
+
+/* El archivo original del perfil conserva su fondo y colores de marca. */
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 60px;
+  overflow: hidden;
+  background: #fff;
+  flex-shrink: 0;
+}
+.brand img {
+  width: 180px;
+  height: 180px;
+  max-width: none;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+@media (max-width: 700px) {
+  .brand { width: 150px; height: 50px; }
+  .brand img { width: 150px; height: 150px; }
+}
