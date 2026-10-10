@@ -1,203 +1,301 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="es-AR">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Obsessive</title>
-    <link rel="stylesheet" href="./css/Style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5qL82u6zM5J9Z7f29JdG3n8WwM5+w9A1/b2o6f5j5a5R2Zl9xT6t4Qp3zN1uBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <meta name="description" content="Taller de detailing automotor en [Tu Ciudad]. Ofrecemos PPF, tratamientos cerámicos, sacabollos y limpieza de interiores para proteger y embellecer tu vehículo.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101110">
+<title>Obsessive | Detailing y protección automotor</title>
+<meta name="description" content="Cada detalle importa. PPF, tratamiento cerámico, desabollado sin pintar, polarizados y limpieza de interiores. Consultá por tu vehículo en Obsessive.">
+<meta property="og:title" content="Obsessive | Cada detalle importa">
+<meta property="og:description" content="Detailing y protección automotor. Conocé nuestros servicios y trabajos.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://nazarenojoelespinosa.github.io/Obssesive.github.io/img/BMW%204301/BMW%204301%20Foto%20costado.jpeg">
+<link rel="stylesheet" href="./css/Style.css">
+<script src="./js/Script.js" defer>
+</script>
 </head>
-
 <body>
-    <header>
-        Obsessive Web
-    </header>
-
-    <main>
-        <section class="hero">
-            <button class="btn styled-reserve-btn" id="openReserveBtn" aria-haspopup="dialog" aria-controls="reserveModal">
-                Reservar turno
-            </button>
-
-            <!-- Modal de reserva -->
-            <div id="reserveModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true"
-                aria-labelledby="reserveTitle">
-                <div class="modal-content" role="document">
-                    <button class="close" id="closeReserveBtn" aria-label="Cerrar reserva">&times;</button>
-
-                    <div class="reserve-panel">
-                        <h2 id="reserveTitle">Reservá tu turno</h2>
-
-                        <form id="reserveForm" action="https://formspree.io/f/mjkaekrg" method="POST" >
-                            <label for="reserveName">Nombre y apellido</label>
-                            <input id="reserveName" name="name" type="text" required autocomplete="name" />
-
-                            <label for="reserveEmail">Email</label>
-                            <input id="reserveEmail" name="email" type="email" required autocomplete="email" />
-
-                            <label for="reservePhone">Teléfono</label>
-                            <input id="reservePhone" name="phone" type="tel" required autocomplete="tel"
-                                pattern="[\d+\-\s()]{6,}" />
-
-                            <label for="reserveService">Servicio</label>
-                            <select id="reserveService" name="service" required>
-                                <option value="">Seleccioná un servicio</option>
-                                <option value="ppf">Paint Protection Film (PPF)</option>
-                                <option value="ceramico">Tratamiento cerámico</option>
-                                <option value="sacabollos">Sacabollos</option>
-                                <option value="polarizado">Polarizados y láminas de seguridad</option>
-                                <option value="interiores">Limpieza de interiores</option>
-                            </select>
-                            <label for="reserveNotes">Comentarios (opcional)</label>
-                            <textarea id="reserveNotes" name="notes" rows="3"
-                                placeholder="Ej: modelo del auto, color, observaciones"></textarea>
-
-                            <div class="form-actions">
-                                <button type="submit" class="btn">Enviar reserva</button>
-                                <button type="button" class="btn" id="reserveCancel">Cancelar</button>
-                            </div>
-
-                            <div id="reserveMessage" role="status" aria-live="polite" class="reserve-message"></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <h1>Bienvenido a Obsessive</h1>
-            <p>Donde cada detalle importa.</p>
-        </section>
-
-        <section class="about">
-            <h2>¿Qué somos?</h2>
-            <p>Somos un taller de detailing automotor dedicado a resaltar la belleza y proteger la vida útil de tu
-                vehículo. Nuestro enfoque está en la perfección de cada detalle.</p>
-        </section>
-
-       <section class="services">
-    <h2>Nuestros Servicios</h2>
-    <p class="section-description">Protección y estética de alta gama para tu vehículo. Trabajamos con marcas líderes para garantizar un acabado impecable.</p>
-
-    <div class="service-grid">
-        
-        <div class="service-card">
-            <i class="fa-solid fa-shield-halved service-icon"></i>
-            <h3>PPF (Film de Protección)</h3>
-            <ul>
-                <li>Máxima protección contra rayones, piedras y químicos.</li>
-                <li>Lámina autocurable con 10 años de garantía.</li>
-                <li>Mantiene el valor de reventa.</li>
-            </ul>
-            <button class="btn-card styled-reserve-btn" id="openReserveBtn_ppf" aria-haspopup="dialog" aria-controls="reserveModal">Pedir Presupuesto</button>
-        </div>
-
-        <div class="service-card">
-            <i class="fa-solid fa-spray-can service-icon"></i>
-            <h3>Tratamiento Cerámico</h3>
-            <ul>
-                <li>Brillo profundo y duradero (hasta 5 años).</li>
-                <li>Efecto hidrofóbico: Repele el agua y facilita la limpieza.</li>
-                <li>Protección superior contra rayos UV y contaminantes.</li>
-            </ul>
-            <button class="btn-card styled-reserve-btn" id="openReserveBtn_ceramic" aria-haspopup="dialog" aria-controls="reserveModal">Reservar Turno</button>
-        </div>
-
-        <div class="service-card">
-            <i class="fa-solid fa-car-side service-icon"></i>
-            <h3>Desabollado sin Pintar</h3>
-            <ul>
-                <li>Reparación invisible de pequeños golpes y granizo.</li>
-                <li>Mantiene la pintura y el acabado de fábrica (PDR).</li>
-                <li>Rápida ejecución y mejor precio.</li>
-            </ul>
-            <button class="btn-card styled-reserve-btn" id="openReserveBtn_pdr" aria-haspopup="dialog" aria-controls="reserveModal">Consultar Servicio</button>
-        </div>
-        
-    </div>
-    
-    <div class="final-cta">
-        <p>¿No estás seguro de qué servicio elegir? Te asesoramos sin cargo.</p>
-        <button class="btn styled-reserve-btn" id="openReserveBtn_final" aria-haspopup="dialog" aria-controls="reserveModal">
-            Asesoramiento y Reserva
-        </button>
-    </div>
+<a class="skip-link" href="#main">Ir al contenido</a>
+<header class="header">
+<a class="brand" href="#inicio" aria-label="Obsessive, inicio">obsessive<span>DETAILING STUDIO</span>
+</a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation">Menú <span aria-hidden="true">☰</span>
+</button>
+<nav id="navigation" aria-label="Navegación principal">
+<a href="#servicios">Servicios</a>
+<a href="#trabajos">Trabajos</a>
+<a href="#nosotros">El taller</a>
+<a class="nav-contact" href="https://wa.link/04dy3o" target="_blank" rel="noopener noreferrer">Hablemos <span aria-hidden="true">↗</span>
+</a>
+</nav>
+</header>
+<main id="main">
+<section class="hero" id="inicio" aria-labelledby="hero-title">
+<div class="hero-copy">
+<p class="eyebrow">
+<span class="line" aria-hidden="true">
+</span> ESTÉTICA & PROTECCIÓN AUTOMOTOR</p>
+<h1 id="hero-title">La diferencia<br>está en <em>cada<br>detalle.</em>
+</h1>
+<p class="hero-description">Tu auto merece algo más que verse bien.<br> Protegemos su esencia. Cuidamos cada terminación.</p>
+<div class="hero-actions">
+<a class="button primary" href="https://wa.link/04dy3o" target="_blank" rel="noopener noreferrer">Consultá por tu auto <span aria-hidden="true">↗</span>
+</a>
+<a class="text-link" href="#trabajos">Ver nuestros trabajos <span aria-hidden="true">↓</span>
+</a>
+</div>
+<p class="hero-footnote">Pasión por los autos. Obsesión por los detalles.</p>
+</div>
+<div class="hero-photo">
+<img src="./img/BMW 4301/BMW 4301 Foto costado.jpeg" alt="Frente, pintura y llanta de un BMW trabajado en Obsessive" fetchpriority="high" width="1080" height="1431">
+<div class="photo-caption">
+<span>EL DETALLE HABLA POR SÍ SOLO</span>
+<span aria-hidden="true">01 / OBSESSIVE</span>
+</div>
+</div>
 </section>
-        <section class="gallery">
-            <h2>Autos que realizamos</h2>
-            <!-- Modal -->
-            <div class="gallery-grid">
-                <!-- Preview 1: BMW 4301 (group 1) -->
-                <div class="preview-card" data-group="1" onclick="openModalGroup(1)">
-                    <img src="./img/BMW 4301/BMW 4301 Foto costado.jpeg" alt="BMW 4301">
-                    <div class="preview-meta">
-                        <h3>BMW 4301</h3>
-                        <p style="font-size:0.9rem;color:#d0cfcf;">Detalle completo: PPF + Cerámico</p>
-                    </div>
-                </div>
-
-                <!-- Preview 2: Mercedes C200 (group 2) -->
-                <div class="preview-card" data-group="2" onclick="openModalGroup(2)">
-                    <img src="/img/auto3.jpg" alt="Mercedes C200">
-                    <div class="preview-meta">
-                        <h3>Mercedes-Benz C200</h3>
-                        <p style="font-size:0.9rem;color:#d0cfcf;">Pulido y tratamiento cerámico</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal: contiene todas las slides, agrupadas por orden (3 por auto si usas autoGroupSize = 3) -->
-            <div id="galleryModal" class="modal" aria-hidden="true">
-                <div class="modal-content" role="dialog" aria-modal="true">
-                    <span class="close" onclick="closeModal()" aria-label="Cerrar">&times;</span>
-
-                    <!-- Grupo 1 (Audi) -->
-                    <div class="slide" data-group="1"><img src="./img/BMW 4301/BMW 4301 Atras.jpeg" alt=""></div>
-                    <div class="slide" data-group="1"><video controls>
-                            <source src="/img/BMW 4301/BMW 4301 Video.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="slide" data-group="1"><img src="./img/BMW 4301/BMW 4301 Foto de atras.jpeg" alt="">
-                    </div>
-
-                    <!-- Grupo 2 (Mercedes) -->
-                    <div class="slide" data-group="2"><img src="/img/auto3.jpg" alt=""></div>
-                    <div class="slide" data-group="2"><video controls>
-                            <source src="/videos/auto3.mp4" type="video/mp4">
-                        </video></div>
-                    <div class="slide" data-group="2"><img src="/img/auto3-detail.jpg" alt=""></div>
-
-                    <a class="prev" onclick="changeSlide(-1)" aria-label="Anterior">&#10094;</a>
-                    <a class="next" onclick="changeSlide(1)" aria-label="Siguiente">&#10095;</a>
-                </div>
-            </div>
-
-        </section>
-                <section class="social-media">
-            <h2>Seguinos en redes</h2>
-            <p>Conocé nuestros trabajos más recientes y promociones especiales.</p>
-            <div class="social-links">
-                <a href="https://www.instagram.com/obsessivearg/" target="_blank" aria-label="Instagram de Obsessive">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-                <a href="https://wa.link/04dy3o" target="_blank" aria-label="Contactar por WhatsApp">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </a>
-                <a href="https://www.facebook.com/cardetailing.mirrorshine" target="_blank" aria-label="Facebook de Obsessive">
-                    <i class="fa-brands fa-facebook-f"></i>
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        &copy; 2025 Obsessive Web. Todos los derechos reservados.
-    </footer>
-
-    <script src="./js/Script.js"></script>
+<div class="discipline-strip" aria-label="Especialidades">
+<span>PROTEGER</span>
+<span aria-hidden="true">✳</span>
+<span>RECUPERAR</span>
+<span aria-hidden="true">✳</span>
+<span>REALZAR</span>
+<span aria-hidden="true">✳</span>
+<span>CUIDAR</span>
+</div>
+<section class="services section-light" id="servicios" aria-labelledby="services-title">
+<div class="section-heading">
+<div>
+<p class="eyebrow">01 / LO QUE HACEMOS</p>
+<h2 id="services-title">Un cuidado a la altura<br>de <em>tu auto.</em>
+</h2>
+</div>
+<p>Cada vehículo tiene su historia y sus necesidades. Encontrá el tratamiento que estás buscando; nosotros te ayudamos a elegir.</p>
+</div>
+<div class="service-grid">
+<article class="service-card">
+<div class="service-top">
+<span>01</span>
+<span aria-hidden="true">↗</span>
+</div>
+<h3>Paint Protection<br>Film <span class="muted">/ PPF</span>
+</h3>
+<p>Una barrera transparente para cuidar la pintura frente a los impactos y el desgaste del uso diario.</p>
+<ul>
+<li>Protección contra pequeñas piedras y rayones</li>
+<li>Conserva el aspecto de la pintura</li>
+</ul>
+<button class="service-link" data-service="ppf" type="button">Consultar por PPF <span aria-hidden="true">↗</span>
+</button>
+</article>
+<article class="service-card">
+<div class="service-top">
+<span>02</span>
+<span aria-hidden="true">✳</span>
+</div>
+<h3>Tratamiento<br>cerámico</h3>
+<p>Brillo, protección y una superficie más fácil de mantener. Un acabado que se nota en cada reflejo.</p>
+<ul>
+<li>Efecto hidrofóbico</li>
+<li>Protección frente a contaminantes</li>
+</ul>
+<button class="service-link" data-service="ceramico" type="button">Consultar por cerámico <span aria-hidden="true">↗</span>
+</button>
+</article>
+<article class="service-card">
+<div class="service-top">
+<span>03</span>
+<span aria-hidden="true">⌁</span>
+</div>
+<h3>Desabollado<br>sin pintar</h3>
+<p>Recuperamos la forma de la carrocería, preservando la pintura original cuando el daño lo permite.</p>
+<ul>
+<li>Pequeños golpes y daños por granizo</li>
+<li>Evaluación según el tipo de daño</li>
+</ul>
+<button class="service-link" data-service="sacabollos" type="button">Consultar por desabollado <span aria-hidden="true">↗</span>
+</button>
+</article>
+</div>
+<div class="extra-services">
+<div>
+<h3>El cuidado también está adentro.</h3>
+<p>Completá la protección de tu vehículo.</p>
+</div>
+<button data-service="polarizado" type="button">Polarizados y láminas de seguridad <span aria-hidden="true">↗</span>
+</button>
+<button data-service="interiores" type="button">Limpieza de interiores <span aria-hidden="true">↗</span>
+</button>
+</div>
+</section>
+<section class="work" id="trabajos" aria-labelledby="work-title">
+<div class="section-heading">
+<div>
+<p class="eyebrow">02 / NUESTRO TRABAJO</p>
+<h2 id="work-title">Menos palabras.<br>
+<em>Más detalles.</em>
+</h2>
+</div>
+<a class="text-link" href="https://www.instagram.com/obsessivearg/" target="_blank" rel="noopener noreferrer">Más trabajos en Instagram <span aria-hidden="true">↗</span>
+</a>
+</div>
+<div class="work-grid">
+<button class="work-image work-feature" data-gallery="0" type="button" aria-label="Ampliar foto del exterior del BMW">
+<img src="./img/BMW 4301/BMW 4301 Foto de atras.jpeg" alt="Vista exterior del BMW en el taller" loading="lazy" width="1080" height="1440">
+<span class="work-caption">
+<span>BMW <small>EXTERIOR / TERMINACIONES</small>
+</span>
+<span class="round-arrow" aria-hidden="true">↗</span>
+</span>
+</button>
+<button class="work-image" data-gallery="1" type="button" aria-label="Ampliar foto del interior del BMW">
+<img src="./img/BMW 4301/BMW 4301 interior 1.jpeg" alt="Detalle del interior del BMW" loading="lazy" width="1080" height="1440">
+<span class="work-caption">
+<span>Desde adentro <small>INTERIOR / DETALLES</small>
+</span>
+<span class="round-arrow" aria-hidden="true">↗</span>
+</span>
+</button>
+<button class="work-image" data-gallery="2" type="button" aria-label="Ampliar foto de la parte trasera del BMW">
+<img src="./img/BMW 4301/BMW 4301 Atras.jpeg" alt="Terminaciones de la parte trasera del BMW" loading="lazy" width="1080" height="1440">
+<span class="work-caption">
+<span>Cada ángulo cuenta <small>PINTURA / REFLEJOS</small>
+</span>
+<span class="round-arrow" aria-hidden="true">↗</span>
+</span>
+</button>
+</div>
+</section>
+<section class="about section-light" id="nosotros" aria-labelledby="about-title">
+<div>
+<p class="eyebrow">03 / EL TALLER</p>
+<h2 id="about-title">No es solo un auto.<br>
+<em>Lo entendemos.</em>
+</h2>
+</div>
+<div class="about-copy">
+<p class="large-copy">Hay algo especial en ver tu auto como te gusta. En Obsessive, ese cuidado guía todo lo que hacemos.</p>
+<p>Somos un taller de detailing automotor dedicado a realzar la estética y proteger tu vehículo. Trabajamos sobre cada detalle, desde la carrocería hasta el interior.</p>
+<div class="approach">
+<span>01</span>
+<p>
+<strong>Contanos qué buscás.</strong> Consultanos por el estado de tu auto y el resultado que querés conseguir.</p>
+</div>
+<div class="approach">
+<span>02</span>
+<p>
+<strong>Elegimos el cuidado adecuado.</strong> Te orientamos sobre el servicio según las necesidades de tu vehículo.</p>
+</div>
+<div class="approach">
+<span>03</span>
+<p>
+<strong>Coordinamos tu visita.</strong> Confirmamos juntos el presupuesto y la disponibilidad del taller.</p>
+</div>
+</div>
+</section>
+<section class="faq section-light" aria-labelledby="faq-title">
+<div>
+<p class="eyebrow">ANTES DE EMPEZAR</p>
+<h2 id="faq-title">Buenas preguntas.<br>
+<em>Respuestas claras.</em>
+</h2>
+</div>
+<div class="faq-list">
+<details>
+<summary>¿Qué servicio necesita mi auto?</summary>
+<p>Depende del estado de la pintura, el uso del vehículo y qué querés proteger o recuperar. Escribinos por WhatsApp y contanos qué buscás para que podamos orientarte.</p>
+</details>
+<details>
+<summary>¿Cómo pido un presupuesto?</summary>
+<p>Podés contactarnos por WhatsApp o enviar el formulario de consulta. Compartí el modelo de tu auto y el servicio que te interesa. La cotización se confirma con el taller.</p>
+</details>
+<details>
+<summary>¿Enviar la consulta confirma mi turno?</summary>
+<p>No. La consulta es el primer contacto. El taller te responde para coordinar el servicio, el presupuesto y la disponibilidad antes de confirmar tu turno.</p>
+</details>
+</div>
+</section>
+<section class="contact" id="contacto" aria-labelledby="contact-title">
+<p class="eyebrow">EL PRÓXIMO DETALLE ES EL TUYO</p>
+<h2 id="contact-title">Dale a tu auto<br>
+<em>el cuidado que merece.</em>
+</h2>
+<p>Contanos qué tenés en mente. Empezamos por una charla.</p>
+<div class="contact-actions">
+<a class="button primary" href="https://wa.link/04dy3o" target="_blank" rel="noopener noreferrer">Hablemos por WhatsApp <span aria-hidden="true">↗</span>
+</a>
+<button class="button secondary" data-service="" type="button">Enviar una consulta <span aria-hidden="true">↗</span>
+</button>
+</div>
+</section>
+</main>
+<footer>
+<a class="brand" href="#inicio">obsessive<span>CADA DETALLE IMPORTA.</span>
+</a>
+<div class="footer-links">
+<a href="https://www.instagram.com/obsessivearg/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+<a href="https://www.facebook.com/cardetailing.mirrorshine" target="_blank" rel="noopener noreferrer">Facebook ↗</a>
+<a href="https://wa.link/04dy3o" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a>
+</div>
+<p>© <span id="year">2026</span> Obsessive.</p>
+</footer>
+<dialog id="reserveModal" aria-labelledby="reserveTitle">
+<button class="dialog-close" type="button" data-close aria-label="Cerrar consulta">×</button>
+<p class="eyebrow">HABLEMOS DE TU AUTO</p>
+<h2 id="reserveTitle">Tu próximo detalle.</h2>
+<p class="dialog-intro">Dejanos tus datos para coordinar. El turno queda confirmado cuando el taller te responde.</p>
+<form id="reserveForm" action="https://formspree.io/f/mjkaekrg" method="POST">
+<label for="reserveName">Nombre y apellido</label>
+<input id="reserveName" name="name" required minlength="2" autocomplete="name">
+<div class="form-row">
+<div>
+<label for="reserveEmail">Email</label>
+<input id="reserveEmail" name="email" type="email" required autocomplete="email">
+</div>
+<div>
+<label for="reservePhone">Teléfono</label>
+<input id="reservePhone" name="phone" type="tel" required autocomplete="tel" pattern="[0-9+\(\)\s\-]{6,}">
+</div>
+</div>
+<label for="reserveService">Servicio</label>
+<select id="reserveService" name="service" required>
+<option value="">Seleccioná un servicio</option>
+<option value="ppf">Paint Protection Film (PPF)</option>
+<option value="ceramico">Tratamiento cerámico</option>
+<option value="sacabollos">Desabollado sin pintar</option>
+<option value="polarizado">Polarizados y láminas de seguridad</option>
+<option value="interiores">Limpieza de interiores</option>
+<option value="asesoramiento">Necesito asesoramiento</option>
+</select>
+<label for="reserveNotes">Sobre tu auto <span class="muted">(opcional)</span>
+</label>
+<textarea id="reserveNotes" name="notes" rows="3" placeholder="Modelo, año y qué te gustaría hacer">
+</textarea>
+<p class="form-notice">Los datos se envían al taller mediante Formspree para responder tu consulta.</p>
+<button class="button primary submit" type="submit">Enviar consulta <span aria-hidden="true">↗</span>
+</button>
+<p id="reserveMessage" role="status" aria-live="polite">
+</p>
+</form>
+</dialog>
+<dialog id="galleryModal" aria-labelledby="galleryTitle">
+<div class="gallery-header">
+<h2 id="galleryTitle">Los detalles, de cerca.</h2>
+<button class="dialog-close" type="button" data-close aria-label="Cerrar galería">×</button>
+</div>
+<figure>
+<img id="galleryImage" alt="">
+<video id="galleryVideo" controls playsinline preload="none" hidden>
+</video>
+<figcaption id="galleryCaption" aria-live="polite">
+</figcaption>
+</figure>
+<div class="gallery-controls">
+<button id="galleryPrev" type="button" aria-label="Foto o video anterior">←</button>
+<span id="galleryCount" aria-live="polite">
+</span>
+<button id="galleryNext" type="button" aria-label="Foto o video siguiente">→</button>
+</div>
+</dialog>
 </body>
-
-
 </html>
-
-

@@ -1,184 +1,133 @@
-let currentGroup = null;
-let groupSlides = []; // array de slides del grupo abierto
-let groupIndex = 0;   // índice dentro del grupo (0..groupSlides.length-1)
-
-function openModalGroup(groupId) {
-  const modal = document.getElementById("galleryModal");
-  modal.style.display = "flex";
-  modal.setAttribute("aria-hidden", "false");
-
-  currentGroup = String(groupId);
-  // seleccionar sólo las slides que tienen data-group == currentGroup
-  const allSlides = Array.from(document.querySelectorAll("#galleryModal .slide"));
-  groupSlides = allSlides.filter(s => s.getAttribute("data-group") === currentGroup);
-
-  // si no hay slides para el grupo, cerrar y salir
-  if (!groupSlides.length) {
-    closeModal();
-    return;
-  }
-
-  // ocultar todas en modal y mostrar la primera del grupo
-  allSlides.forEach(s => s.style.display = "none");
-  groupIndex = 0;
-  groupSlides[groupIndex].style.display = "block";
-
-  // pausar otros videos si existieran
-  pauseAllModalVideos();
+'use strict';
+const menuButton = document.querySelector('.menu-toggle');
+const navigation = document.querySelector('#navigation');
+function closeMenu() {
+  menuButton.setAttribute('aria-expanded', 'false');
+  navigation.classList.remove('is-open');
 }
-
-function closeModal() {
-  const modal = document.getElementById("galleryModal");
-  modal.style.display = "none";
-  modal.setAttribute("aria-hidden", "true");
-  // esconder todas las slides
-  document.querySelectorAll("#galleryModal .slide").forEach(s => s.style.display = "none");
-  pauseAllModalVideos();
-  currentGroup = null;
-  groupSlides = [];
-  groupIndex = 0;
-}
-
-function changeSlide(direction) {
-  if (!groupSlides || !groupSlides.length) return;
-
-  // nuevo índice limitado dentro del grupo (sin wrap fuera del grupo)
-  const newIndex = groupIndex + direction;
-  if (newIndex < 0 || newIndex >= groupSlides.length) {
-    // opcional: animación o rebote; por ahora no hace nada para indicar límite
-    return;
-  }
-
-  // cambiar slide
-  groupSlides[groupIndex].style.display = "none";
-  // si era un video, pausar
-  stopMediaInElement(groupSlides[groupIndex]);
-
-  groupIndex = newIndex;
-  groupSlides[groupIndex].style.display = "block";
-
-  // pausar otros videos y no dejar reproducir el anterior
-  pauseAllModalVideos();
-}
-
-function pauseAllModalVideos() {
-  const vids = document.querySelectorAll("#galleryModal video");
-  vids.forEach(v => v.pause());
-}
-
-function stopMediaInElement(el) {
-  const v = el.querySelector("video");
-  if (v) {
-    v.pause();
-    v.currentTime = 0;
-  }
-}
-
-/* Soporte teclado: Escape cierra, flechas navegan (dentro del grupo) */
-document.addEventListener("keydown", function(e) {
-  const modal = document.getElementById("galleryModal");
-  if (!modal || modal.getAttribute("aria-hidden") === "true") return;
-
-  if (e.key === "Escape") closeModal();
-  if (e.key === "ArrowLeft") changeSlide(-1);
-  if (e.key === "ArrowRight") changeSlide(1);
+menuButton.addEventListener('click', () => {
+  const expanded = menuButton.getAttribute('aria-expanded') === 'true';
+  menuButton.setAttribute('aria-expanded', String(!expanded));
+  navigation.classList.toggle('is-open', !expanded);
 });
-
-/* Cerrar modal si se hace click fuera del contenido */
-document.getElementById("galleryModal").addEventListener("click", function(e) {
-  if (e.target === this) closeModal();
+navigation.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && navigation.classList.contains('is-open')) {
+    closeMenu();
+    menuButton.focus();
+  }
 });
-
-
-/* ===== Reserva: comportamiento y validación ===== */
-(function() {
-  // openBtn ya no se usa, pero lo dejamos por consistencia con el HTML si existiera.
-  // const openBtn = document.getElementById('openReserveBtn'); 
-  const modal = document.getElementById('reserveModal');
-  const closeBtn = document.getElementById('closeReserveBtn');
-  const cancelBtn = document.getElementById('reserveCancel');
-  const form = document.getElementById('reserveForm');
-  const msg = document.getElementById('reserveMessage');
-
-  // Helpers
-  function showModal() {
-    modal.style.display = 'flex';
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden'; // Evita scroll en fondo
-    // foco en primer campo
-    setTimeout(() => document.getElementById('reserveName').focus(), 120);
-    // Lógica de fecha y hora eliminada.
-    form.reset(); // Limpiar formulario al abrir
-    msg.textContent = ''; // Limpiar mensaje de estado
-  }
-  function closeModalReserve() {
-    modal.style.display = 'none';
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-    msg.textContent = '';
-    form.reset();
-  }
-
-  // NUEVO: Selecciona todos los botones de reserva, excluyendo los del formulario (para evitar bugs)
-  const allReserveBtns = document.querySelectorAll('.styled-reserve-btn:not(.form-actions .styled-reserve-btn)');
-
-  // Open / close: Añade listener a todos los botones que abren el modal
-  allReserveBtns.forEach(btn => {
-    btn.addEventListener('click', showModal);
+document.querySelector('#year').textContent = new Date().getFullYear();
+const reserveDialog = document.querySelector('#reserveModal');
+const galleryDialog = document.querySelector('#galleryModal');
+let dialogTrigger;
+function openDialog(dialog, trigger) {
+  dialogTrigger = trigger;
+  dialog.showModal();
+  document.body.classList.add('dialog-open');
+}
+[reserveDialog, galleryDialog].forEach(dialog => {
+  dialog.querySelector('[data-close]').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', event => {
+    const bounds = dialog.getBoundingClientRect();
+    if (event.target === dialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) dialog.close();
   });
-
-  closeBtn.addEventListener('click', closeModalReserve);
-  cancelBtn.addEventListener('click', closeModalReserve);
-
-  // click fuera del dialog cierra
-  modal.addEventListener('click', function(e) {
-    if (e.target === modal) closeModalReserve();
+  dialog.addEventListener('close', () => {
+    document.body.classList.remove('dialog-open');
+    dialogTrigger?.focus();
   });
-
-  // keyboard support
-  document.addEventListener('keydown', function(e) {
-    if (modal.getAttribute('aria-hidden') === 'true') return;
-    if (e.key === 'Escape') closeModalReserve();
-  });
-
-  // simple validation helper
-  function validateForm(formData) {
-    const errors = [];
-    if (!formData.get('name') || formData.get('name').trim().length < 2) errors.push('Nombre inválido');
-    const email = formData.get('email') || '';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push('Email inválido');
-    const phone = formData.get('phone') || '';
-    if (!/[\d]{6,}/.test(phone.replace(/\D/g,''))) errors.push('Teléfono inválido');
-    if (!formData.get('service')) errors.push('Seleccioná un servicio');
-    // Validaciones de fecha y horario eliminadas.
-    return errors;
-  }
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault(); // Detenemos el envío inicial para validar
-
-    msg.style.color = '#cfeadf';
-    msg.textContent = 'Validando...';
-
-    const formData = new FormData(form);
-    const errors = validateForm(formData); // Usamos la validación simplificada
-
-    if (errors.length) {
-      // Si hay errores, los mostramos y no enviamos
-      msg.style.color = '#f6b1b1';
-      msg.textContent = errors.join(' · ');
-      return;
+});
+const form = document.querySelector('#reserveForm');
+const serviceSelect = document.querySelector('#reserveService');
+const message = document.querySelector('#reserveMessage');
+const submitButton = form.querySelector('[type="submit"]');
+let sending = false;
+document.querySelectorAll('[data-service]').forEach(button => {
+  button.addEventListener('click', () => {
+    if (!sending) {
+      serviceSelect.value = button.dataset.service || 'asesoramiento';
+      message.textContent = '';
+      message.classList.remove('error-message');
     }
-    
-    // Si la validación es exitosa:
-    msg.style.color = '#cfeadf';
-    msg.textContent = 'Enviando reserva...';
-    
-    // Permitimos el envío nativo de Formspree (o el servicio que uses en el 'action')
-    // El 'submit()' disparará el envío real del formulario.
-    form.submit();
-
-    // NOTA: Con el envío nativo, el usuario abandonará la página y verá la página de "Thank You" de Formspree. 
-    // Los siguientes mensajes de éxito son opcionales y solo se verán brevemente.
+    openDialog(reserveDialog, button);
+    document.querySelector('#reserveName').focus();
   });
-})();
+});
+form.addEventListener('submit', async event => {
+  event.preventDefault();
+  if (sending || !form.reportValidity()) return;
+  const nameInput = document.querySelector('#reserveName');
+  const phoneInput = document.querySelector('#reservePhone');
+  if (nameInput.value.trim().length < 2 || phoneInput.value.replace(/\D/g, '').length < 6) {
+    message.textContent = 'Revisá tu nombre y teléfono antes de enviar.';
+    message.classList.add('error-message');
+    return;
+  }
+  sending = true;
+  submitButton.disabled = true;
+  message.classList.remove('error-message');
+  message.textContent = 'Enviando tu consulta…';
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20000);
+  try {
+    const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }, signal: controller.signal });
+    if (!response.ok) throw new Error('No se pudo enviar');
+    message.textContent = 'Recibimos tu consulta. El taller te contactará para coordinar; tu turno todavía no está confirmado.';
+    form.reset();
+  } catch {
+    message.textContent = 'No pudimos confirmar el envío. Tus datos siguen acá; podés reintentar o escribirnos por WhatsApp.';
+    message.classList.add('error-message');
+  } finally {
+    clearTimeout(timeout);
+    sending = false;
+    submitButton.disabled = false;
+  }
+});
+const media = [
+  { src: './img/BMW 4301/BMW 4301 Foto de atras.jpeg', caption: 'BMW · Exterior y terminaciones' },
+  { src: './img/BMW 4301/BMW 4301 interior 1.jpeg', caption: 'BMW · Detalles del interior' },
+  { src: './img/BMW 4301/BMW 4301 Atras.jpeg', caption: 'BMW · Pintura y reflejos' },
+  { src: './img/BMW 4301/BMW 4301 Foto costado.jpeg', caption: 'BMW · Frente y llantas' },
+  { src: './img/BMW 4301/BMW 4301 interior 2.jpeg', caption: 'BMW · Interior, otro ángulo' },
+  { src: './img/BMW 4301/BMW 4301 Video.mp4', caption: 'BMW · Recorrido en video', video: true },
+  { src: './img/BMW 4301/BMW 4301 Video 2.mp4', caption: 'BMW · Los detalles en movimiento', video: true }
+];
+let mediaIndex = 0;
+const galleryImage = document.querySelector('#galleryImage');
+const galleryVideo = document.querySelector('#galleryVideo');
+function showMedia(index) {
+  mediaIndex = (index + media.length) % media.length;
+  const item = media[mediaIndex];
+  galleryVideo.pause();
+  galleryVideo.removeAttribute('src');
+  galleryVideo.load();
+  galleryVideo.hidden = !item.video;
+  galleryImage.hidden = Boolean(item.video);
+  if (item.video) galleryVideo.src = item.src;
+  else {
+    galleryImage.src = item.src;
+    galleryImage.alt = item.caption;
+  }
+  document.querySelector('#galleryCaption').textContent = item.caption;
+  document.querySelector('#galleryCount').textContent = `${mediaIndex + 1} / ${media.length}`;
+}
+document.querySelectorAll('[data-gallery]').forEach(button => {
+  button.addEventListener('click', () => {
+    showMedia(Number(button.dataset.gallery));
+    openDialog(galleryDialog, button);
+  });
+});
+document.querySelector('#galleryPrev').addEventListener('click', () => showMedia(mediaIndex - 1));
+document.querySelector('#galleryNext').addEventListener('click', () => showMedia(mediaIndex + 1));
+galleryDialog.addEventListener('keydown', event => {
+  if (event.target === galleryVideo) return;
+  if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+    event.preventDefault();
+    showMedia(mediaIndex + (event.key === 'ArrowRight' ? 1 : -1));
+  }
+});
+galleryDialog.addEventListener('close', () => {
+  galleryVideo.pause();
+  galleryVideo.removeAttribute('src');
+  galleryVideo.load();
+});
