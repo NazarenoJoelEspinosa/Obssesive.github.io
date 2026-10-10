@@ -2,7 +2,10 @@
 :root {
   --ink:#101110;
   --paper:#f1f0eb;
-  --accent:#d09165;
+  --accent:#00b6e9;
+  --blue:#004da1;
+  --pink:#ec008c;
+  --yellow:#f6e900;
   --muted:#a3a79e;
   --font:'DM Sans',sans-serif;
   --heading:'Manrope',sans-serif
@@ -178,7 +181,7 @@ h1 {
   color:var(--ink)
 }
 .primary:hover {
-  background:#e8ac82
+  background:#6cdcff
 }
 .secondary {
   background:transparent;
@@ -281,7 +284,7 @@ h2 {
   margin-top:18px
 }
 .section-light em {
-  color:#995d36
+  color:var(--blue)
 }
 .service-grid {
   display:grid;
@@ -301,7 +304,7 @@ h2 {
   display:flex;
   align-items:center;
   justify-content:space-between;
-  color:#995d36;
+  color:var(--blue);
   font-size:11px
 }
 .service-top span:last-child {
@@ -334,7 +337,7 @@ h2 {
 }
 .service-card li:before {
   content:'+';
-  color:#995d36;
+  color:var(--blue);
   margin-right:10px
 }
 .service-link {
@@ -351,7 +354,7 @@ h2 {
   margin-top:auto
 }
 .service-link:hover {
-  color:#995d36
+  color:var(--blue)
 }
 .extra-services {
   display:grid;
@@ -380,7 +383,7 @@ h2 {
   font-size:12px
 }
 .extra-services button:hover {
-  color:#995d36
+  color:var(--blue)
 }
 .work-grid {
   display:grid;
@@ -468,7 +471,7 @@ h2 {
 }
 .approach>span {
   font-size:11px;
-  color:#995d36;
+  color:var(--blue);
   padding-top:2px
 }
 .approach p {
@@ -510,7 +513,7 @@ h2 {
 }
 .faq summary:after {
   content:'+';
-  color:#995d36
+  color:var(--blue)
 }
 .faq details[open] summary:after {
   content:'−'
@@ -524,7 +527,7 @@ h2 {
 .contact {
   text-align:center;
   padding:90px 6% 100px;
-  background:radial-gradient(ellipse at 50% 100%,#39271d 0,transparent 65%)
+  background:radial-gradient(ellipse at 50% 100%,#072a49 0,transparent 65%)
 }
 .contact .eyebrow {
   justify-content:center
@@ -622,7 +625,7 @@ input,select,textarea {
   font-size:13px
 }
 input:focus,select:focus,textarea:focus {
-  outline:2px solid #995d36;
+  outline:2px solid var(--blue);
   outline-offset:1px
 }
 .form-row {
@@ -995,25 +998,54 @@ dialog h2 {
 
 }
 
-/* El archivo original del perfil conserva su fondo y colores de marca. */
+
+/* Logo original transparente: el contenedor recorta solo el espacio vacío. */
 .brand {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 180px;
-  height: 60px;
+  width: 300px;
+  height: 64px;
   overflow: hidden;
-  background: #fff;
+  background: transparent;
   flex-shrink: 0;
 }
 .brand img {
-  width: 180px;
-  height: 180px;
+  width: 300px;
+  height: 100px;
   max-width: none;
   flex-shrink: 0;
   object-fit: contain;
 }
+.header {
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(90deg, var(--accent), var(--blue), var(--pink), var(--yellow)) 1;
+}
+.line { background: linear-gradient(90deg, var(--accent), var(--pink)); }
+.discipline-strip span:nth-child(4) { color: var(--pink); }
+.discipline-strip span:nth-child(6) { color: var(--yellow); }
+.service-card:nth-child(2) .service-top { color: #b00067; }
+.service-card:nth-child(1) { border-top: 3px solid var(--accent); }
+.service-card:nth-child(2) { border-top: 3px solid var(--pink); }
+.service-card:nth-child(3) { border-top: 3px solid var(--yellow); }
+.contact .eyebrow { color: var(--yellow); }
+button:focus-visible, a:focus-visible, summary:focus-visible {
+  outline-color: var(--pink);
+}
+@media (max-width: 1000px) {
+  .brand { width: 250px; }
+  .brand img { width: 250px; height: 83.33px; }
+}
 @media (max-width: 700px) {
-  .brand { width: 150px; height: 50px; }
-  .brand img { width: 150px; height: 150px; }
+  .header { height: 94px; }
+  .header nav { top: 94px; }
+  .brand { width: 230px; height: 64px; }
+  .brand img { width: 230px; height: 76.67px; }
+}
+@media (max-width: 360px) {
+  .header { padding-inline: 5%; }
+  .discipline-strip { font-size: 8px; letter-spacing: 1px; gap: 4px; }
+  .brand { width: 205px; }
+  .brand img { width: 205px; height: 68.33px; }
+  .menu-toggle { padding-inline: 8px; gap: 7px; }
 }
